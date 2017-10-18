@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="http://cdn.dhtmlx.com/edge/dhtmlx.css" type="text/css">
+    <script src="http://cdn.dhtmlx.com/edge/dhtmlx.js" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+
+    <div id="form_container" style="width:280px;height:250px;"></div>
+
+    <div id="form_container1" style="width:280px;height:250px;"></div>
+
+    <script>
+        // Define the Form structure
+        formStructure = [
+            { type: "settings", position: "label-top" },
+            {
+                type: "fieldset", name: "calculator", label: "Calculator", list: [
+                    { type: "input", name: 'firstNum', label: 'First number:' },
+                    { type: "input", name: "secNum", label: "Second number:" },
+                    { type: "input", name: "resNum", label: "Result:" },
+                    { type: "newcolumn" },
+                    { type: "button", name: "plus", width: 20, offsetTop: 2, value: "+" },
+                    { type: "button", name: "minus", width: 20, offsetTop: 10, value: "-" },
+                    { type: "button", name: "multiply", width: 20, offsetTop: 10, value: "*" },
+                    { type: "button", name: "divide", width: 20, offsetTop: 10, value: "/" }
+                ]
+            }
+        ];
+
+        /// Initialize the form
+        var myForm = new dhtmlXForm("form_container", formStructure);
+
+        // Attach event
+        myForm.attachEvent("onButtonClick", function (id) {
+            var res, num1, num2;
+            num1 = parseInt(myForm.getItemValue("firstNum"));// returns the value of item
+            num2 = parseInt(myForm.getItemValue("secNum")); // returns the value of item
+            if (id == "plus") //defines addition
+            { res = num1 + num2; }
+            else if (id == "minus") //defines subtraction
+            { res = num1 - num2; }
+            else if (id == "multiply")//defines multiplication
+            { res = num1 * num2; }
+            else if (id == "divide")//defines division
+            {
+                if (num2 == 0) //if division by zero - generates a message
+                { alert("Error.Division by zero!"); res = ""; }
+                else { res = num1 / num2; }
+            }
+            myForm.setItemValue("resNum", res);// sets the value of item
+        })
+
+        formStructure = [
+            { type: "radio", name: "color", value: "r", checked: true, label: "Red" },
+            { type: "radio", name: "color", value: "g", label: "Green" },
+            { type: "radio", name: "color", value: "b", label: "Blue" }
+        ];
+        var dhxForm = new dhtmlXForm("form_container1", formStructure);
+    </script>
+</body>
+
+</html>
